@@ -16,20 +16,20 @@ namespace DefaultNamespace
         private void OnEnable()
         {
             _inputActions.Enable();
-            _inputActions.Player.Move.started += SetDirection;
+            _inputActions.Player.Move.performed += SetDirection;
             _inputActions.Player.Move.canceled += SetDirection;
         }
 
         private void OnDisable()
         {
             _inputActions.Disable();
-            _inputActions.Player.Move.started -= SetDirection;
+            _inputActions.Player.Move.performed -= SetDirection;
             _inputActions.Player.Move.canceled -= SetDirection;
         }
 
         private void SetDirection(InputAction.CallbackContext context)
         {
-            _movement.Direction = context.ReadValue<Vector2>();
+            _movement.InputDirection = context.ReadValue<Vector2>();
         }
     }
 }

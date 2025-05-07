@@ -7,12 +7,12 @@ public class PlayerMovement : MonoBehaviour
     
     private Rigidbody _rbody;
     private PlayerInputActions _inputActions;
-    private Vector2 _direction = Vector2.zero;
+    private Vector2 _inputDirection = Vector2.zero;
 
-    public Vector2 Direction
+    public Vector2 InputDirection
     {
-        get => _direction;
-        set => _direction = value;
+        get => _inputDirection;
+        set => _inputDirection = value;
     }
     
     private void Awake()
@@ -22,7 +22,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_direction.Equals(Vector2.zero)) return;
-        _rbody.linearVelocity += Direction.x * transform.right * _speed * -1 * Time.deltaTime;
+        if (_inputDirection.Equals(Vector2.zero)) return;
+        Vector3 direction = (-transform.right * _inputDirection.x + -transform.forward * _inputDirection.y).normalized;
+        _rbody.MovePosition(_rbody.position + direction * _speed * Time.fixedDeltaTime);
     }
 }
